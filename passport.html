@@ -63,18 +63,21 @@ body {
   align-items: center;
   justify-content: center;
   padding: 22px 40px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(6px) saturate(180%);
   -webkit-backdrop-filter: blur(6px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 28px;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  backdrop-filter: url(#liquid-glass-filter) blur(2px) saturate(160%);
 }
 
 .passport-logo-overlay {
   width: 340px;
   height: auto;
   display: block;
+  position: relative;
+  z-index: 3;
 }
 
 @media (max-width: 480px) {
@@ -192,6 +195,21 @@ body {
 </style>
 </head>
 <body>
+
+<svg style="position:absolute; width:0; height:0;">
+<filter id="liquid-glass-filter" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.012 0.014" numOctaves="2" seed="5" stitchTiles="stitch" result="noise"/>
+<feGaussianBlur in="noise" stdDeviation="3" result="softNoise"/>
+<feDisplacementMap in="SourceGraphic" in2="softNoise" scale="14" xChannelSelector="R" yChannelSelector="G" result="dispR"/>
+<feColorMatrix in="dispR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanR"/>
+<feDisplacementMap in="SourceGraphic" in2="softNoise" scale="20" xChannelSelector="R" yChannelSelector="G" result="dispG"/>
+<feColorMatrix in="dispG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanG"/>
+<feDisplacementMap in="SourceGraphic" in2="softNoise" scale="26" xChannelSelector="R" yChannelSelector="G" result="dispB"/>
+<feColorMatrix in="dispB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="chanB"/>
+<feBlend in="chanR" in2="chanG" mode="screen" result="rg"/>
+<feBlend in="rg" in2="chanB" mode="screen"/>
+</filter>
+</svg>
 
 <div class="header-video-wrapper">
 <video autoplay muted loop playsinline disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback">
