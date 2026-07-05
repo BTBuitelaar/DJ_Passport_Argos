@@ -365,7 +365,7 @@ buildMap();
 (function() {
 var ua = navigator.userAgent;
 var isSafari = /^((?!chrome|android|crios|fxios|edg|opios).)*safari/i.test(ua);
-if (!isSafari && location.search.indexOf('forceSafari') === -1) return;
+if (!isSafari) return;
 
 var chip = document.getElementById('glassChip');
 var video = document.querySelector('.header-video-wrapper video');
@@ -467,7 +467,7 @@ var dxS = boxBlur(boxBlur(dx));
       var a1 = Math.abs(dxS[mi]); if (a1 > maxAbs) maxAbs = a1;
       var a2 = Math.abs(dyS[mi]); if (a2 > maxAbs) maxAbs = a2;
     }
-    var norm = maxAbs > 0.0001 ? (60 / maxAbs) : 1;
+    var norm = maxAbs > 0.0001 ? (38 / maxAbs) : 1;
     for (var mj = 0; mj < dxS.length; mj++) { dxS[mj] *= norm; dyS[mj] *= norm; }
 
     return { dx: dxS, dy: dyS };
